@@ -1,0 +1,31 @@
+generated: '2026-09-14'
+method: probed
+source: probed /.well-known/ paths across all known hosts
+note: >-
+  Every /.well-known/ path 404s on both the marketing host and the API gateway
+  host. No WellKnown or SecurityTxt pointer is emitted because nothing was
+  served. Recorded absence is valid data.
+hosts:
+- host: aerviklabs.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+    file: null
+  - path: /.well-known/openid-configuration
+    status: 404
+    file: null
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    file: null
+  - path: /.well-known/api-catalog
+    status: 404
+    file: null
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 404
+    file: null
+  - path: /.well-known/agent.json
+    status: 404
+    file: null

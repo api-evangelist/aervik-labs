@@ -1,0 +1,64 @@
+generated: '2026-09-14'
+method: derived
+source: openapi/aervik-labs-coi-verification.json ; https://aerviklabs.com/apis/coi-verification/ ; https://aerviklabs.com/security/
+note: >-
+  Cross-cutting runtime semantics for the ACORD 25 COI Verification API, derived
+  from the OpenAPI contract and product docs. The service is a thin, mostly
+  stateless extraction/verification API behind the RapidAPI gateway.
+auth:
+  style: apiKey header
+  header: X-RapidAPI-Key
+  host_header: X-RapidAPI-Host
+  cross_link: authentication/aervik-labs-authentication.yml
+idempotency:
+  coverage: none
+  scope: []
+  note: >-
+    No Idempotency-Key header or replay-protection mechanism is documented.
+    /parse and /verify are stateless computations; /requirements POST creates a
+    profile but no idempotency key is offered.
+pagination:
+  style: none
+  note: No collection-listing operation exists; GET /requirements/{id} returns a single profile by id.
+versioning:
+  style: dated changelog
+  in_contract: info.version 1.0.0
+  header: none
+  cross_link: lifecycle/aervik-labs-lifecycle.yml
+error_envelope:
+  shape: '{ "error": "<stable_code>", "message": "<human_readable>" }'
+  format: custom-json (not RFC 9457)
+  cross_link: errors/aervik-labs-problem-types.yml
+rate_limit_signaling:
+  first_party_headers: none
+  note: Quota/rate enforcement is performed by the RapidAPI gateway; see rate-limits/aervik-labs-rate-limits.yml.
+request_id_tracing:
+  documented: false
+metadata:
+  documented: false
+field_expansion:
+  documented: false
+dry_run_mode:
+  state: na
+  note: No write operation supports a dry-run/preview mode; the closest is /parse (extract-only, no verification) vs /verify.
+reversibility:
+  state: none
+  note: >-
+    /parse and /verify are read-only computations and are inherently na for
+    reversal. The only mutating operation, POST /requirements
+    (createRequirementsProfile), persists a named profile retrievable by id, but
+    the documented contract exposes no delete, void, or update operation for it,
+    so a created profile has no documented reversal path. No window is asserted
+    because none is stated.
+  surfaces:
+  - operation: parseCertificate
+    write: false
+    reversal: na
+  - operation: verifyCertificate
+    write: false
+    reversal: na
+  - operation: createRequirementsProfile
+    write: true
+    reversal: none
+    reversal_operation: null
+    window: null

@@ -1,0 +1,15 @@
+generated: '2026-09-14'
+method: generated
+source: openapi/aervik-labs-coi-verification.json
+api: Aervik Labs COI Verification
+skills:
+- name: verify-coi-compliance
+  file: aervik-labs-verify-coi-compliance.md
+  operations:
+  - createRequirementsProfile
+  - verifyCertificate
+  - getRequirementsProfile
+- name: parse-coi
+  file: aervik-labs-parse-coi.md
+  operations:
+  - parseCertificate

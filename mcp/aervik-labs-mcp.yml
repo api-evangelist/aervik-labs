@@ -1,0 +1,29 @@
+generated: '2026-09-14'
+method: derived
+source: openapi/aervik-labs-coi-verification.json
+note: >-
+  No official hosted or stdio MCP server is published by Aervik Labs. This is a
+  DERIVED candidate tool list, mapped 1:1 from the four documented OpenAPI
+  operations of the ACORD 25 COI Verification API. The API is distributed
+  through the RapidAPI marketplace (X-RapidAPI-Key header auth); a real MCP
+  server would need to wrap that gateway. No endpoint URL is asserted.
+deployment:
+  mode: none
+  auth: api-key
+  verified: derived
+server:
+  name: aervik-labs-coi-verification
+  status: candidate
+tools:
+- name: parse_certificate
+  rest: parseCertificate
+  description: Extract a certificate of insurance (ACORD 25) into structured fields.
+- name: verify_certificate
+  rest: verifyCertificate
+  description: Extract a certificate and check it against coverage requirements.
+- name: create_requirements_profile
+  rest: createRequirementsProfile
+  description: Save a named coverage-requirements profile for reuse.
+- name: get_requirements_profile
+  rest: getRequirementsProfile
+  description: Retrieve a saved coverage-requirements profile by id.

@@ -1,0 +1,21 @@
+generated: '2026-09-14'
+method: searched
+source: openapi/aervik-labs-coi-verification.json ; https://aerviklabs.com/apis/coi-verification/
+docs: https://aerviklabs.com/apis/coi-verification/
+docs_note: >-
+  Docs confirm RapidAPI header auth: X-RapidAPI-Key (the application key) plus
+  X-RapidAPI-Host set to
+  certificate-of-insurance-verification-compliance-check-api.p.rapidapi.com.
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: RapidApiKey
+  type: apiKey
+  in: header
+  parameter: X-RapidAPI-Key
+  description: Your RapidAPI application key.
+  sources:
+  - openapi/aervik-labs-coi-verification.json

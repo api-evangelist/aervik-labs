@@ -1,0 +1,33 @@
+generated: '2026-09-14'
+method: searched
+source: https://aerviklabs.com/changelog/ ; https://aerviklabs.com/apis/coi-verification/
+versioning:
+  scheme: dated
+  current_version: '1.0.0'
+  note: >-
+    The OpenAPI declares info.version 1.0.0. The site publishes no formal
+    semantic-versioning policy; product evolution is tracked as a dated
+    changelog, newest first.
+deprecation:
+  policy: informal-but-honored
+  mechanism: >-
+    Retired routes and discontinued products return HTTP 410 Gone with an
+    explanatory code (e.g. `route_retired`, `410 Gone`) rather than being
+    silently removed.
+  examples:
+  - date: '2026-09-06'
+    change: AD/CVD removed from import screening; endpoint returns 410 route_retired.
+  - date: '2026-09-02'
+    change: Healthcare Exclusion & Sanction Screening discontinued permanently; endpoints return 410 Gone.
+  sunset_headers: not-documented
+status_page:
+  present: false
+  note: No status page or uptime dashboard is published.
+sla:
+  present: false
+  note: The pricing page states there is no uptime guarantee or SLA.
+recent_breaking_changes:
+- date: '2026-09-08'
+  change: COI Verification returns three-state verdicts (compliant / deficient / cannot_determine) with an "unreadable" status for illegible fields.
+- date: '2026-09-07'
+  change: 'Breaking: COI Verification withholds unquoted values (returns null) rather than guessing.'

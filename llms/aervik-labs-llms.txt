@@ -1,0 +1,86 @@
+# Aervik Labs
+
+> Narrow, well-documented compliance and trade-data APIs. Each one does a single job with a
+> documented request and response, and is billed through the RapidAPI marketplace.
+
+Aervik Labs is operated by EAC Ventures, LLC. It is AI-operated and human-directed: pricing,
+publication standards, corrections and spend are decided or approved by a human principal.
+Full detail at https://aerviklabs.com/about/.
+
+Every figure published on this site cites a public source or is our own measurement,
+published with its method and date. We do not publish
+testimonials, review scores, user counts, or case studies, because we do not have any yet.
+
+## APIs
+
+- [ACORD 25 Data Extraction & COI Verification](https://aerviklabs.com/apis/coi-verification/): Verify a certificate against your requirements — and get told plainly when a value could not be read.
+- [EPA ECHO Facility Violation History & Risk Score](https://aerviklabs.com/apis/epa-compliance-risk/): Look up a U.S. facility's environmental compliance history — EPA's alleged violations and formal enforcement — and get one risk score with a plain-English summary.
+- [FDA Import Alert Screening](https://aerviklabs.com/apis/fda-import-alerts/): Screen a firm against every FDA Import Alert Red, Yellow and Green List in one call.
+- [Landed Cost API — HS Subheading & Duty Range](https://aerviklabs.com/apis/hts-tariff-classifier/): Estimate what a product costs to import: 6-digit HS subheading, duty rate range, and China Section 301 list exposure from a plain-English description.
+- [UFLPA Entity List Screening](https://aerviklabs.com/apis/import-risk-screening/): UFLPA Entity List and denied-party screening in one call, from two live federal sources.
+- [Invoice & Receipt OCR](https://aerviklabs.com/apis/invoice-ocr/): Turn a photo, scan, or PDF of an invoice or receipt into structured JSON: vendor, line items, tax, and total.
+- [PII Redaction](https://aerviklabs.com/apis/pii-redaction/): Find and redact names, emails, phone numbers, addresses, SSNs, card numbers and dates of birth in free text.
+- [Resume Parser](https://aerviklabs.com/apis/resume-parser/): Turn a resume — plain text, a PDF, or an image — into structured candidate data.
+- [SEC Form 4 Insider Trade Alerts](https://aerviklabs.com/apis/sec-form4-alerts/): A public company's recent Form 4 insider buy/sell filings as structured data, live from SEC EDGAR, with plain-English context per transaction.
+- [SAM.gov Exclusions & OFAC Screening](https://aerviklabs.com/apis/vendor-entity-screening/): Screen a vendor company against SAM.gov Exclusions and the OFAC/BIS Consolidated Screening List in one call — the check a procurement team runs before onboarding a new vendor. (not yet open for signups)
+
+## Solutions
+
+- [Compliance & Vendor Risk](https://aerviklabs.com/solutions/compliance-vendor-risk/): Vendor and compliance screening data for risk and procurement teams.
+- [Document Intelligence](https://aerviklabs.com/solutions/document-intelligence/): AI-powered extraction and structuring for invoices, receipts, and resumes.
+- [Market Intelligence](https://aerviklabs.com/solutions/market-intelligence/): Regulatory filing data, structured for finance and research tools.
+- [Trade Intelligence](https://aerviklabs.com/solutions/trade-intelligence/): Landed-cost estimates and import-risk screening for sourcing, procurement, and trade-compliance teams.
+
+## Research — original test sets and methods, free to use against any tool
+
+- [SEC Form 4, 2026 Q2: Issuer-as-Owner Filings and Flag Spellings](https://aerviklabs.com/research/sec-form4-2026q2/): How often a company's EDGAR list holds other issuers' Form 4s, and how Form 4 XML flags are spelled: 2026 Q2 counts, a 600-document sample, method and data.
+- [The COI Extraction Honesty Test](https://aerviklabs.com/research/coi-extraction-honesty-test/): An open, synthetic test set for certificate-of-insurance extraction: does a tool invent a value for a blank cell, and can it tell absent from unreadable?
+
+## Free tools
+
+- [Free Certificate of Insurance Checker — ACORD 25 Compliance Check](https://aerviklabs.com/tools/coi-checker/): Upload a certificate of insurance, set your requirements, and get an itemized verdict — including the fields that could not be read. Free, no sign-up.
+- [Free Landed Cost Estimator — HS Code & Import Duty Lookup](https://aerviklabs.com/tools/hts-classifier/): Free tool: turn a plain-English product description into a 6-digit HS subheading and an estimated U.S. import duty range. No signup for 10 lookups a day.
+
+## Guides
+
+- [Automating ACORD 25 Verification for Vendor Onboarding](https://aerviklabs.com/guides/acord-25-vendor-onboarding-automation/): What a certificate of insurance shows, why manual COI review is slow and error-prone, and how to automate the check against your own coverage requirements.
+- [Blank, Unreadable, or Absent](https://aerviklabs.com/guides/illegible-certificates-in-an-extraction-pipeline/): Handling illegible fields in ACORD 25 extraction: why a blank cell and an unreadable one need different answers, and why confidence is not a refusal.
+- [Certificate Holder vs Additional Insured](https://aerviklabs.com/guides/certificate-holder-vs-additional-insured/): Certificate holder vs additional insured: why only one gives you coverage on someone else's policy, and what a certificate can and cannot prove.
+- [Coverage Requirements as Data](https://aerviklabs.com/guides/coverage-requirements-as-data/): The schema a certificate of insurance is checked against, and five ways a requirements check silently passes a rule it never ran.
+- [EPA ECHO API: Nine Traps in the Facility Search Services](https://aerviklabs.com/guides/epa-echo-api-traps/): Querying EPA's ECHO REST services from code: errors sent as HTTP 200, filters silently ignored, a download that fails as HTML, and six more traps.
+- [How to Check a Supplier Against the UFLPA Entity List](https://aerviklabs.com/guides/uflpa-screening-requirements/): What the UFLPA presumption means, what the official Entity List actually contains, how its aliases are written, and what a name screen cannot tell you.
+- [Is the 6-Digit HS Code Enough to Estimate U.S. Duty?](https://aerviklabs.com/guides/is-the-6-digit-hs-code-enough/): Measured across all 5,612 subheadings: how often a 6-digit HS code fixes the U.S. general duty rate, where it fails, and what it can never tell you.
+- [Parsing SEC Form 4 XML: Seven Traps in EDGAR's Filing Data](https://aerviklabs.com/guides/parse-sec-form-4-xml/): Reading insider trades from EDGAR's Form 4 XML: the filing-list filter that returns other companies' trades, boolean flags in two dialects, and five more traps.
+- [trade.gov's Consolidated Screening List API: Nine Traps in the Search Endpoint](https://aerviklabs.com/guides/trade-gov-consolidated-screening-list-api/): Screening names with the Consolidated Screening List API: the one-page default, a size cap that fails silently, the offset ceiling, null types and more.
+- [What a Certificate of Insurance Actually Proves](https://aerviklabs.com/guides/what-a-certificate-of-insurance-proves/): A certificate of insurance is a dated summary, not the policy. What it establishes, what it cannot, and which checks it genuinely settles.
+- [What Makes a Certificate of Insurance Deficient](https://aerviklabs.com/guides/what-makes-a-coi-deficient/): How a certificate of insurance fails a contract: low limits, no additional insured, no waiver of subrogation, missing coverage, or an expiry inside your window.
+- [When a Certificate Can't Be Read](https://aerviklabs.com/guides/when-a-certificate-cannot-be-read/): What a certificate-of-insurance API should return when a value is on the document but illegible, and why 'absent' and 'unreadable' must be different answers.
+
+## Writing
+
+- [Why raw OCR text isn't the same thing as structured invoice data](https://aerviklabs.com/blog/2026-08-29-ocr-text-vs-structured-invoice-data/): Generic OCR turns an invoice or receipt image into text, but someone — or something — still has to parse that text into vendor, line items and totals.
+- [Rule-based vs. contextual resume parsing: where each one breaks](https://aerviklabs.com/blog/2026-08-29-rule-based-vs-contextual-resume-parsing/): Regex and keyword-based resume parsers miss context that contextual AI extraction handles -- but contextual extraction has its own real, documented quirks too.
+- [Why regex can't catch every kind of PII](https://aerviklabs.com/blog/2026-08-29-why-regex-misses-pii/): Regex reliably catches emails, phone numbers and SSNs, but it cannot recognize a name or an address without context. Why, and what closing that gap requires.
+- [What UFLPA screening actually requires](https://aerviklabs.com/blog/2026-08-27-what-uflpa-screening-actually-requires/): The Uyghur Forced Labor Prevention Act shifts the burden of proof to importers. What that presumption means, and what a pre-shipment screen has to check.
+- [Why manual certificate-of-insurance review misses things](https://aerviklabs.com/blog/2026-08-27-why-manual-coi-review-misses-things/): A certificate of insurance has to be checked against several details at once. What a real ACORD 25 review requires, and why it is error-prone by hand at volume.
+
+## For developers
+
+- [Developers](https://aerviklabs.com/developers/): The API catalog, with OpenAPI 3.1 documents and Postman collections where published, free plans, authentication, and a first call to make.
+- [API catalog (APIs.json)](https://aerviklabs.com/apis.json): Machine-readable index of the APIs and their OpenAPI documents.
+- [Data sources and freshness](https://aerviklabs.com/data-sources/): Each product's upstream source, how we read it, and the source's own stated update schedule.
+
+## About this operation
+
+- [About](https://aerviklabs.com/about/): Who is accountable, how the data and products are produced, where AI sits in the pipeline, and how corrections work.
+- [Security and data handling](https://aerviklabs.com/security/): What is stored, what is not, and how requests are authenticated.
+- [Changelog](https://aerviklabs.com/changelog/): Dated record of what shipped, what changed, and what was discontinued.
+- [Privacy policy](https://aerviklabs.com/privacy/)
+- [Terms of service](https://aerviklabs.com/terms/)
+
+## Notes for retrieval
+
+- Canonical origin is https://aerviklabs.com. Pages are served with trailing slashes.
+- The machine-readable page index is https://aerviklabs.com/sitemap.xml.
+- Products that were discontinued are recorded in the changelog rather than deleted
+  silently. If a page 404s and the changelog names it, it was killed on purpose.

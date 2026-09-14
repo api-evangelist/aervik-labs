@@ -1,0 +1,70 @@
+generated: '2026-09-14'
+method: derived
+source: openapi/aervik-labs-coi-verification.json
+note: >-
+  Entity-relationship graph derived from the OpenAPI component schemas ($ref
+  links). The domain models the ACORD 25 certificate (CoiData) and the coverage
+  requirements it is checked against (RequirementsProfile), joined by the verify
+  result (VerifyResult).
+entities:
+- name: CoiData
+  description: Structured certificate-of-insurance data extracted from an ACORD 25.
+- name: Insurer
+  description: An insurance carrier named on the certificate.
+- name: OtherCoverage
+  description: A coverage line outside the four modeled grids.
+- name: RequirementsProfile
+  description: A named set of coverage requirements to verify against.
+- name: VerifyResult
+  description: The outcome of checking a certificate against requirements.
+- name: Verdict
+  description: Three-state result (compliant / deficient / cannot_determine).
+- name: Deficiency
+  description: A single failed or unreadable requirement, with its FieldStatus.
+- name: FieldStatus
+  description: Per-field state including the "unreadable" distinction.
+- name: GeneralLiabilityRequirements
+- name: AutoLiabilityRequirements
+- name: UmbrellaExcessRequirements
+- name: WorkersCompRequirements
+relationships:
+- from: CoiData
+  type: has_many
+  to: Insurer
+  via: insurers
+- from: CoiData
+  type: has_many
+  to: OtherCoverage
+  via: other_coverages
+- from: VerifyResult
+  type: has_one
+  to: Verdict
+  via: verdict
+- from: VerifyResult
+  type: has_many
+  to: Deficiency
+  via: deficiencies
+- from: VerifyResult
+  type: has_one
+  to: CoiData
+  via: parsed
+- from: Deficiency
+  type: has_one
+  to: FieldStatus
+  via: status
+- from: RequirementsProfile
+  type: has_one
+  to: GeneralLiabilityRequirements
+  via: general_liability
+- from: RequirementsProfile
+  type: has_one
+  to: AutoLiabilityRequirements
+  via: auto_liability
+- from: RequirementsProfile
+  type: has_one
+  to: UmbrellaExcessRequirements
+  via: umbrella_excess
+- from: RequirementsProfile
+  type: has_one
+  to: WorkersCompRequirements
+  via: workers_comp

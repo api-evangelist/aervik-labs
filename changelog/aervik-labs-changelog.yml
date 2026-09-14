@@ -1,0 +1,39 @@
+generated: '2026-09-14'
+method: searched
+source: https://aerviklabs.com/changelog/
+scheme: dated
+current_version: '1.0.0'
+note: >-
+  Company-wide changelog covering all Aervik Labs APIs; entries relevant to the
+  COI Verification API are flagged. Newest first, recent window only.
+entries:
+- date: '2026-09-14'
+  breaking: false
+  highlights: New developer portal with OpenAPI 3.1 specs and Postman collections; data-sources documentation; three screening fixes.
+- date: '2026-09-13'
+  breaking: false
+  highlights: Two new developer guides (SEC Form 4 XML, EPA ECHO API); EPA city/street-address search fix.
+- date: '2026-09-11'
+  breaking: false
+  highlights: COI Verification now distinguishes illegible cells from missing ones; Landed Cost and FDA Import Alert clarifications.
+- date: '2026-09-10'
+  breaking: false
+  highlights: FDA Import Alert Screening launched; new COI extraction test dataset published.
+- date: '2026-09-09'
+  breaking: false
+  highlights: Pricing statements corrected to match the plans actually on sale.
+- date: '2026-09-08'
+  breaking: true
+  highlights: COI Verification returns three-state verdicts (compliant/deficient/cannot_determine) with an "unreadable" status for illegible fields.
+- date: '2026-09-07'
+  breaking: true
+  highlights: COI Verification withholds unquoted values (returns null); free COI checker tool launched.
+- date: '2026-09-06'
+  breaking: true
+  highlights: AD/CVD removed from import screening (410 route_retired); screening now entity-only.
+- date: '2026-09-02'
+  breaking: true
+  highlights: Healthcare Exclusion & Sanction Screening discontinued permanently (410 Gone).
+- date: '2026-08-27'
+  breaking: false
+  highlights: COI, Import Risk and Healthcare Exclusion published on RapidAPI with free evaluation tiers.

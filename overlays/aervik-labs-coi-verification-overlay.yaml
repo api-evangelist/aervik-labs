@@ -1,0 +1,34 @@
+overlay: 1.0.0
+info:
+  title: Aervik Labs COI Verification — API Evangelist enrichment overlay
+  version: 1.0.0
+x-provenance:
+  generated: '2026-09-14'
+  method: generated
+  source: openapi/aervik-labs-coi-verification.json
+  note: >-
+    Non-destructive OpenAPI Overlay 1.0.0 capturing API Evangelist enrichment
+    annotations for the ACORD 25 COI Verification API. Does not mutate the
+    original spec; records the domain-standard signal, distribution channel, and
+    cross-links to derived artifacts.
+extends: ../openapi/aervik-labs-coi-verification.json
+actions:
+- target: $.info
+  update:
+    x-domain-standard: acord-25
+    x-distribution: RapidAPI marketplace gateway
+    x-operator: EAC Ventures, LLC (AI-operated, human-directed)
+- target: $.info
+  update:
+    x-apievangelist-artifacts:
+      conformance: conformance/aervik-labs-conformance.yml
+      errors: errors/aervik-labs-problem-types.yml
+      conventions: conventions/aervik-labs-conventions.yml
+      lifecycle: lifecycle/aervik-labs-lifecycle.yml
+      plans: plans/aervik-labs-plans-pricing.yml
+      rate_limits: rate-limits/aervik-labs-rate-limits.yml
+      data_model: data-model/aervik-labs-data-model.yml
+- target: $.paths['/verify'].post
+  update:
+    x-marquee-flow: true
+    x-note: Primary agent flow — extract an ACORD 25 and check it against a requirements profile.

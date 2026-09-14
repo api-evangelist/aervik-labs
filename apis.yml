@@ -1,5 +1,13 @@
 name: Aervik Labs
-description: Certificate of Insurance (COI) verification and compliance-check API.
+description: >-
+  Aervik Labs is a narrow, well-documented API operated by EAC Ventures, LLC
+  that extracts and verifies ACORD 25 Certificates of Insurance (COI) against
+  your own coverage requirements. It parses a certificate into structured
+  fields, checks it for compliance, and returns a three-state verdict that tells
+  contractors, property managers and risk teams plainly when a value is
+  deficient versus when it simply could not be read. Distributed through the
+  RapidAPI marketplace with a free evaluation tier.
+image: https://aerviklabs.com/images/aervik-labs-logo-primary.png
 url: https://raw.githubusercontent.com/api-evangelist/aervik-labs/refs/heads/main/apis.yml
 created: '2026-09-14'
 modified: '2026-09-14'
@@ -9,10 +17,21 @@ tags:
 - Compliance
 - Verification
 - InsurTech
+- Certificate of Insurance
+- ACORD 25
+- Document Intelligence
+- RapidAPI
 apis:
 - name: Aervik Labs API
+  description: >-
+    ACORD 25 Data Extraction & COI Verification. Extract a certificate of
+    insurance into structured fields and verify it against saved coverage
+    requirements, with a three-state verdict (compliant / deficient /
+    cannot_determine) that flags fields which are present but unreadable rather
+    than guessing. Four operations behind the RapidAPI gateway.
+  image: https://aerviklabs.com/images/aervik-labs-logo-primary.png
   humanURL: https://aerviklabs.com/apis/coi-verification/
-  baseURL: https://aerviklabs.com
+  baseURL: https://certificate-of-insurance-verification-compliance-check-api.p.rapidapi.com
   tags:
   - Insurance
   - Compliance
@@ -24,14 +43,72 @@ apis:
     url: https://aerviklabs.com/postman/coi-verification.postman_collection.json
   - type: Documentation
     url: https://aerviklabs.com/apis/coi-verification/
+  - type: MCPServer
+    url: mcp/aervik-labs-mcp.yml
+  - type: Conformance
+    url: conformance/aervik-labs-conformance.yml
+  - type: ErrorCatalog
+    url: errors/aervik-labs-problem-types.yml
+  - type: Conventions
+    url: conventions/aervik-labs-conventions.yml
+  - type: Lifecycle
+    url: lifecycle/aervik-labs-lifecycle.yml
+  - type: Deprecation
+    url: lifecycle/aervik-labs-lifecycle.yml
+  - type: ChangeLog
+    url: changelog/aervik-labs-changelog.yml
+  - type: Plans
+    url: plans/aervik-labs-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/aervik-labs-rate-limits.yml
+  - type: DataModel
+    url: data-model/aervik-labs-data-model.yml
+  - type: Overlay
+    url: overlays/aervik-labs-coi-verification-overlay.yaml
+  - type: AgentSkill
+    url: skills/_index.yml
 common:
+- type: DomainSecurity
+  url: security/aervik-labs-domain-security.yml
+- type: Authentication
+  url: authentication/aervik-labs-authentication.yml
+- type: VulnerabilityDisclosure
+  url: security/aervik-labs-vulnerability-disclosure.yml
+- type: Security
+  url: security/aervik-labs-vulnerability-disclosure.yml
+- type: Packages
+  url: packages/aervik-labs-packages.yml
+- type: LLMsTxt
+  url: llms/aervik-labs-llms.txt
 - type: Website
   url: https://aerviklabs.com
+- type: DeveloperPortal
+  url: https://aerviklabs.com/developers/
+- type: APIReference
+  url: https://aerviklabs.com/apis/coi-verification/
+- type: Blog
+  url: https://aerviklabs.com/blog/
+- type: GitHubOrganization
+  url: https://github.com/aervik-labs
+- type: Pricing
+  url: https://aerviklabs.com/pricing/
+- type: SignUp
+  url: https://rapidapi.com/aervik-labs-aervik-labs-default/api/certificate-of-insurance-verification-compliance-check-api
+- type: TermsOfService
+  url: https://aerviklabs.com/terms/
+- type: PrivacyPolicy
+  url: https://aerviklabs.com/privacy/
 maintainers:
 - FN: Aervik Labs
+  email: aerviklabs@gmail.com
   url: https://aerviklabs.com
 x-source:
   via: apis.io/add aervik-labs-1219ac70, parked domain_mismatch
   fetched: '2026-09-14'
   note: 'Approved: the gate saw a RapidAPI base, but the provider publishes its own OpenAPI at aerviklabs.com (200).
     Base points at their distribution channel; the verifiable spec is first-party.'
+x-enrichment:
+  date: '2026-09-14'
+  status: enriched
+  artifacts_added: 20
+  pass: local-v3

@@ -1,0 +1,39 @@
+generated: '2026-09-14'
+method: searched
+source: https://aerviklabs.com/pricing/
+note: >-
+  Plans for the ACORD 25 COI Verification API. All billing is through the
+  RapidAPI marketplace ("you subscribe there, and your card details never reach
+  us"). No contracts, minimum terms, or sales calls. All tiers except MEGA are
+  hard-capped (calls stop at the limit rather than billing extra); MEGA allows
+  overage. No uptime guarantee or SLA. Monthly billing cycle.
+billing:
+  channel: RapidAPI marketplace
+  currency: USD
+  period: monthly
+plan_count: 4
+plans:
+- name: BASIC
+  price: 0
+  billing_period: monthly
+  included: 50 verifications / month
+  overage: none (hard-capped)
+  note: Free evaluation tier, no card required.
+- name: PRO
+  price: 49
+  billing_period: monthly
+  included: 150 verifications / month
+  unit_cost: '$0.327 per verification'
+  overage: none (hard-capped)
+- name: ULTRA
+  price: 149
+  billing_period: monthly
+  included: 750 verifications / month
+  unit_cost: '$0.199 per verification'
+  overage: none (hard-capped)
+- name: MEGA
+  price: 399
+  billing_period: monthly
+  included: 3000 verifications / month
+  unit_cost: '$0.133 per verification'
+  overage: '$0.15 per verification beyond included volume'

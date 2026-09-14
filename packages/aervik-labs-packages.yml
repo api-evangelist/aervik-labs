@@ -1,0 +1,37 @@
+generated: '2026-09-14'
+method: searched
+source: https://github.com/aervik-labs ; registry.npmjs.org ; pypi.org
+note: >-
+  Aervik Labs publishes NO installable client library (no npm, PyPI, Maven,
+  NuGet, Go, RubyGems, Packagist or crates.io package — searches returned none).
+  What it ships is first-party quickstart EXAMPLE repositories on GitHub with
+  Python and Node samples for calling the RapidAPI-gateway APIs directly. These
+  are sample code, not versioned SDKs, so no SDKs pointer is emitted and version
+  fields are null (the repos are not published to any package registry).
+packages:
+- name: coi-verification-examples
+  official: true
+  kind: examples
+  registry: github
+  languages:
+  - Python
+  - Node
+  url: https://github.com/aervik-labs/coi-verification-examples
+  version: null
+  published: null
+  version_note: >-
+    Git example repo, not a published package; no registry metadata endpoint.
+    Last updated Aug-Sep 2026 per GitHub.
+- name: import-risk-screening-examples
+  official: true
+  kind: examples
+  registry: github
+  languages:
+  - Python
+  - Node
+  url: https://github.com/aervik-labs/import-risk-screening-examples
+  version: null
+  published: null
+  version_note: >-
+    Git example repo for a sibling Aervik Labs API (not the COI product); listed
+    for completeness. Not a published package.

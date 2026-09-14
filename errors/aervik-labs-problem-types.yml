@@ -1,0 +1,68 @@
+generated: '2026-09-14'
+method: derived
+source: openapi/aervik-labs-coi-verification.json (ErrorResponse schema) ; https://aerviklabs.com/apis/coi-verification/
+format: custom-json
+envelope:
+  shape: '{ "error": "<stable_code>", "message": "<human_readable>" }'
+  code_field: error
+  message_field: message
+  content_type: application/json
+note: >-
+  Not RFC 9457. Every non-2xx JSON response from the API itself uses a custom
+  {error, message} envelope. `error` is a stable machine-readable code; `message`
+  is human-facing and may change. RapidAPI answers authentication, subscription
+  and rate-limit failures itself, in its own format, before the request reaches
+  the API. HTTP status codes observed in the contract: 400, 404, 405, 413, 422,
+  502, 503 (plus 200/201 success).
+problem_types:
+- code: blocked_file_url
+  meaning: The supplied file URL points at a blocked or disallowed location.
+- code: empty_requirements
+  meaning: A requirements object was supplied but contained no rules.
+- code: extraction_failed
+  meaning: The certificate could not be extracted into structured fields.
+- code: input_too_large
+  meaning: The submitted input exceeds the maximum accepted size.
+  http: 413
+- code: invalid_file_url
+  meaning: The supplied file URL is malformed or unreachable.
+- code: invalid_json
+  meaning: The request body was not valid JSON.
+  http: 400
+- code: invalid_requirement_value
+  meaning: A requirement value is not of the expected type or range.
+- code: invalid_requirements
+  meaning: The requirements object failed validation.
+- code: method_not_allowed
+  meaning: The HTTP method is not permitted on this route.
+  http: 405
+- code: missing_input
+  meaning: A required input (document text, file, or url) was not provided.
+- code: missing_requirements
+  meaning: A verify call was made without any requirements to check against.
+- code: not_found
+  meaning: The requested resource does not exist.
+  http: 404
+- code: pdf_url_unsupported
+  meaning: A PDF supplied by URL is not supported for this operation.
+- code: provider_misconfigured
+  meaning: A server-side model/provider configuration error.
+  http: 502
+- code: requirements_not_found
+  meaning: The referenced saved requirements profile id was not found.
+  http: 404
+- code: requirements_store_unavailable
+  meaning: The requirements profile store is temporarily unavailable.
+  http: 503
+- code: requirements_too_large
+  meaning: The requirements object exceeds the maximum accepted size.
+  http: 413
+- code: unauthorized
+  meaning: The request was not authorized by the API.
+- code: unknown_requirement_keys
+  meaning: The requirements object contains keys the API does not recognize.
+- code: unsupported_mime_type
+  meaning: The uploaded document's MIME type is not supported.
+  http: 422
+- code: unsupported_url_scheme
+  meaning: The file URL uses a scheme (e.g. non-https) that is not supported.

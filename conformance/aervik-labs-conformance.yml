@@ -1,0 +1,44 @@
+generated: '2026-09-14'
+method: derived
+source: openapi/aervik-labs-coi-verification.json ; https://aerviklabs.com/apis/coi-verification/
+note: >-
+  Conformance derived from the OpenAPI contract and product docs. The dominant
+  signal is a domain standard: the API's entire purpose is extracting and
+  verifying the ACORD 25 Certificate of Liability Insurance, the standard COI
+  form issued by ACORD for the U.S. insurance market. Its schemas model ACORD 25
+  coverage lines directly (General Liability, Automobile Liability, Umbrella /
+  Excess, Workers Compensation).
+conformance:
+- id: acord-25
+  name: ACORD 25 (Certificate of Liability Insurance)
+  domain_standard: true
+  conforms: true
+  evidence: >-
+    OpenAPI info.title "ACORD 25 Data Extraction & COI Verification"; component
+    schemas GeneralLiabilityCoverage, AutoLiabilityCoverage,
+    UmbrellaExcessCoverage, WorkersCompCoverage model the ACORD 25 coverage
+    grid; product page https://aerviklabs.com/apis/coi-verification/
+- id: rfc9457
+  name: RFC 9457 Problem Details
+  conforms: false
+  evidence: >-
+    Errors use a custom {error, message} JSON envelope, not
+    application/problem+json. `error` is a stable machine-readable code; see
+    errors/aervik-labs-problem-types.yml.
+- id: oauth2
+  name: OAuth 2.0
+  conforms: false
+  evidence: >-
+    Authentication is a RapidAPI apiKey (X-RapidAPI-Key header). No OAuth flow
+    is declared in the OpenAPI or docs.
+- id: pagination
+  name: Pagination
+  conforms: false
+  evidence: >-
+    No collection-listing operation exists; GET /requirements/{id} fetches a
+    single profile by id.
+- id: idempotency
+  name: Idempotency-Key
+  conforms: false
+  evidence: >-
+    No Idempotency-Key header or replay-protection mechanism is documented.

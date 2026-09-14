@@ -1,0 +1,38 @@
+generated: '2026-09-14'
+method: searched
+source: https://aerviklabs.com/pricing/ ; https://aerviklabs.com/apis/coi-verification/
+note: >-
+  The API is fronted by the RapidAPI gateway, which enforces quota, subscription
+  and rate-limit checks itself and answers them in its own format before the
+  request reaches Aervik Labs. The provider documents monthly plan quotas but
+  publishes NO per-second/burst limits and NO first-party rate-limit response
+  headers (X-RateLimit-*, RateLimit-*, Retry-After) of its own — those, where
+  present, are emitted by the RapidAPI gateway. Limits below are the monthly
+  volume caps attached to each plan tier.
+headers:
+  documented: false
+  note: RapidAPI gateway may emit X-RateLimit-* headers; Aervik Labs documents none first-party.
+exhaustion:
+  behavior: >-
+    On all tiers except MEGA the plan is hard-capped — calls stop at the monthly
+    limit. MEGA bills overage at $0.15 per verification.
+  status_code: not-documented (handled by RapidAPI)
+limit_count: 4
+limits:
+- scope: per-account (monthly quota)
+  plan: BASIC
+  window: month
+  limit: 50
+- scope: per-account (monthly quota)
+  plan: PRO
+  window: month
+  limit: 150
+- scope: per-account (monthly quota)
+  plan: ULTRA
+  window: month
+  limit: 750
+- scope: per-account (monthly quota)
+  plan: MEGA
+  window: month
+  limit: 3000
+  burst: overage billed at $0.15/verification beyond 3000
