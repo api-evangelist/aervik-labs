@@ -1,0 +1,37 @@
+name: Aervik Labs
+description: Certificate of Insurance (COI) verification and compliance-check API.
+url: https://raw.githubusercontent.com/api-evangelist/aervik-labs/refs/heads/main/apis.yml
+created: '2026-09-14'
+modified: '2026-09-14'
+specificationVersion: '0.21'
+tags:
+- Insurance
+- Compliance
+- Verification
+- InsurTech
+apis:
+- name: Aervik Labs API
+  humanURL: https://aerviklabs.com/apis/coi-verification/
+  baseURL: https://aerviklabs.com
+  tags:
+  - Insurance
+  - Compliance
+  - Verification
+  properties:
+  - type: OpenAPI
+    url: https://aerviklabs.com/openapi/coi-verification.json
+  - type: PostmanCollection
+    url: https://aerviklabs.com/postman/coi-verification.postman_collection.json
+  - type: Documentation
+    url: https://aerviklabs.com/apis/coi-verification/
+common:
+- type: Website
+  url: https://aerviklabs.com
+maintainers:
+- FN: Aervik Labs
+  url: https://aerviklabs.com
+x-source:
+  via: apis.io/add aervik-labs-1219ac70, parked domain_mismatch
+  fetched: '2026-09-14'
+  note: 'Approved: the gate saw a RapidAPI base, but the provider publishes its own OpenAPI at aerviklabs.com (200).
+    Base points at their distribution channel; the verifiable spec is first-party.'
