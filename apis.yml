@@ -16,35 +16,35 @@ tags:
 - Insurance
 - Compliance
 - Verification
+- Insurtech
+- Certificate of Insurance
+- ACORD 25
+- Document Intelligence
+- RapidAPI
+tags_raw:
+- Insurance
+- Compliance
+- Verification
 - InsurTech
 - Certificate of Insurance
 - ACORD 25
 - Document Intelligence
 - RapidAPI
 apis:
-- name: Aervik Labs API
-  description: >-
-    ACORD 25 Data Extraction & COI Verification. Extract a certificate of
-    insurance into structured fields and verify it against saved coverage
-    requirements, with a three-state verdict (compliant / deficient /
-    cannot_determine) that flags fields which are present but unreadable rather
-    than guessing. Four operations behind the RapidAPI gateway.
-  image: https://aerviklabs.com/images/aervik-labs-logo-primary.png
+- aid: aervik-labs:aervik-labs-parse-api
+  name: Aervik Labs Parse API
+  description: The Parse API from Aervik Labs — 1 operation(s) for parse.
   humanURL: https://aerviklabs.com/apis/coi-verification/
   baseURL: https://certificate-of-insurance-verification-compliance-check-api.p.rapidapi.com
   tags:
-  - Insurance
-  - Compliance
-  - Verification
+  - Parse
   properties:
   - type: OpenAPI
-    url: https://aerviklabs.com/openapi/coi-verification.json
+    url: openapi/aervik-labs-parse-api-openapi.yml
   - type: PostmanCollection
     url: https://aerviklabs.com/postman/coi-verification.postman_collection.json
   - type: Documentation
     url: https://aerviklabs.com/apis/coi-verification/
-  - type: MCPServer
-    url: mcp/aervik-labs-mcp.yml
   - type: Conformance
     url: conformance/aervik-labs-conformance.yml
   - type: ErrorCatalog
@@ -63,11 +63,77 @@ apis:
     url: rate-limits/aervik-labs-rate-limits.yml
   - type: DataModel
     url: data-model/aervik-labs-data-model.yml
-  - type: Overlay
-    url: overlays/aervik-labs-coi-verification-overlay.yaml
-  - type: AgentSkill
-    url: skills/_index.yml
+- aid: aervik-labs:aervik-labs-requirements-api
+  name: Aervik Labs Requirements API
+  description: The Requirements API from Aervik Labs — 2 operation(s) for requirements.
+  humanURL: https://aerviklabs.com/apis/coi-verification/
+  baseURL: https://certificate-of-insurance-verification-compliance-check-api.p.rapidapi.com
+  tags:
+  - Requirements
+  properties:
+  - type: OpenAPI
+    url: openapi/aervik-labs-requirements-api-openapi.yml
+  - type: PostmanCollection
+    url: https://aerviklabs.com/postman/coi-verification.postman_collection.json
+  - type: Documentation
+    url: https://aerviklabs.com/apis/coi-verification/
+  - type: Conformance
+    url: conformance/aervik-labs-conformance.yml
+  - type: ErrorCatalog
+    url: errors/aervik-labs-problem-types.yml
+  - type: Conventions
+    url: conventions/aervik-labs-conventions.yml
+  - type: Lifecycle
+    url: lifecycle/aervik-labs-lifecycle.yml
+  - type: Deprecation
+    url: lifecycle/aervik-labs-lifecycle.yml
+  - type: ChangeLog
+    url: changelog/aervik-labs-changelog.yml
+  - type: Plans
+    url: plans/aervik-labs-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/aervik-labs-rate-limits.yml
+  - type: DataModel
+    url: data-model/aervik-labs-data-model.yml
+- aid: aervik-labs:aervik-labs-verify-api
+  name: Aervik Labs Verify API
+  description: The Verify API from Aervik Labs — 1 operation(s) for verify.
+  humanURL: https://aerviklabs.com/apis/coi-verification/
+  baseURL: https://certificate-of-insurance-verification-compliance-check-api.p.rapidapi.com
+  tags:
+  - Verify
+  properties:
+  - type: OpenAPI
+    url: openapi/aervik-labs-verify-api-openapi.yml
+  - type: PostmanCollection
+    url: https://aerviklabs.com/postman/coi-verification.postman_collection.json
+  - type: Documentation
+    url: https://aerviklabs.com/apis/coi-verification/
+  - type: Conformance
+    url: conformance/aervik-labs-conformance.yml
+  - type: ErrorCatalog
+    url: errors/aervik-labs-problem-types.yml
+  - type: Conventions
+    url: conventions/aervik-labs-conventions.yml
+  - type: Lifecycle
+    url: lifecycle/aervik-labs-lifecycle.yml
+  - type: Deprecation
+    url: lifecycle/aervik-labs-lifecycle.yml
+  - type: ChangeLog
+    url: changelog/aervik-labs-changelog.yml
+  - type: Plans
+    url: plans/aervik-labs-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/aervik-labs-rate-limits.yml
+  - type: DataModel
+    url: data-model/aervik-labs-data-model.yml
 common:
+- type: MCPServer
+  url: mcp/aervik-labs-mcp.yml
+- type: Overlay
+  url: overlays/aervik-labs-coi-verification-overlay.yaml
+- type: AgentSkill
+  url: skills/_index.yml
 - type: DomainSecurity
   url: security/aervik-labs-domain-security.yml
 - type: Authentication
