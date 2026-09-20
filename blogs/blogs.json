@@ -1,0 +1,14 @@
+{
+  "repo": "aervik-labs",
+  "feeds": [
+    {
+      "source": "https://aerviklabs.com/apis/coi-verification/",
+      "feed_url": "https://aerviklabs.com/changelog.xml",
+      "title": "",
+      "saved": 16,
+      "method": "discovered"
+    }
+  ],
+  "post_count": 16,
+  "fetched": "2026-09-19T20:17:39Z"
+}
