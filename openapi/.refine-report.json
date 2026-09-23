@@ -1,0 +1,31 @@
+{
+  "provider": "aervik-labs",
+  "sources": [
+    "_original/aervik-labs-coi-verification.json"
+  ],
+  "outputs": [
+    "aervik-labs-parse-api-openapi.yml",
+    "aervik-labs-requirements-api-openapi.yml",
+    "aervik-labs-verify-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "aervik-labs-coi-verification.json: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "aervik-labs-coi-verification.json: tagged paths POST /parse -> Parse",
+    "aervik-labs-coi-verification.json: tagged paths POST /verify -> Verify",
+    "aervik-labs-coi-verification.json: tagged paths POST /requirements -> Requirements",
+    "aervik-labs-coi-verification.json: tagged paths GET /requirements/{id} -> Requirements",
+    "aervik-labs-coi-verification.json: declared missing tag: Parse",
+    "aervik-labs-coi-verification.json: declared missing tag: Requirements",
+    "aervik-labs-coi-verification.json: declared missing tag: Verify",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "aervik-labs-parse-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "aervik-labs-requirements-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "aervik-labs-verify-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
+}

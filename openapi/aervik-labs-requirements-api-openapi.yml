@@ -1,0 +1,210 @@
+openapi: 3.2.0
+info:
+  title: ACORD 25 Data Extraction & COI Verification Requirements API
+  version: 1.0.0
+  summary: Verify a certificate against your requirements — and get told plainly when a value could not be read.
+  description: Extract and verify ACORD 25 certificates of insurance against your coverage requirements automatically, for contractors, property managers, and risk teams.
+  contact:
+    name: Aervik Labs
+    url: https://aerviklabs.com/about/
+  termsOfService: https://coi.aerviklabs.com/terms
+servers:
+- url: https://certificate-of-insurance-verification-compliance-check-api.p.rapidapi.com
+  description: RapidAPI gateway
+security:
+- RapidApiKey: []
+tags:
+- name: Requirements
+paths:
+  /requirements:
+    post:
+      operationId: createRequirementsProfile
+      summary: Save a named coverage-requirements profile and get back its id
+      parameters:
+      - $ref: '#/components/parameters/RapidApiHost'
+      responses:
+        '201':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RequirementsProfileResponse'
+        '400':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '405':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '413':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateRequirementsRequest'
+      tags:
+      - Requirements
+  /requirements/{id}:
+    get:
+      operationId: getRequirementsProfile
+      summary: Fetch a saved coverage-requirements profile by id
+      parameters:
+      - $ref: '#/components/parameters/RapidApiHost'
+      - name: id
+        in: path
+        required: true
+        description: The id returned when the profile was saved
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RequirementsProfileResponse'
+        '404':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '405':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      tags:
+      - Requirements
+components:
+  parameters:
+    RapidApiHost:
+      name: X-RapidAPI-Host
+      in: header
+      required: true
+      schema:
+        type: string
+        const: certificate-of-insurance-verification-compliance-check-api.p.rapidapi.com
+  schemas:
+    GeneralLiabilityRequirements:
+      type: object
+      properties:
+        each_occurrence_min:
+          type: number
+        general_aggregate_min:
+          type: number
+        products_comp_op_agg_min:
+          type: number
+        personal_adv_injury_min:
+          type: number
+        additional_insured_required:
+          type: boolean
+        waiver_of_subrogation_required:
+          type: boolean
+    RequirementsProfile:
+      type: object
+      properties:
+        name:
+          type: string
+        general_liability:
+          $ref: '#/components/schemas/GeneralLiabilityRequirements'
+        auto_liability:
+          $ref: '#/components/schemas/AutoLiabilityRequirements'
+        umbrella_excess:
+          $ref: '#/components/schemas/UmbrellaExcessRequirements'
+        workers_comp:
+          $ref: '#/components/schemas/WorkersCompRequirements'
+        min_days_until_expiration:
+          type: number
+        certificate_holder_must_include:
+          type: string
+    UmbrellaExcessRequirements:
+      type: object
+      properties:
+        each_occurrence_min:
+          type: number
+        aggregate_min:
+          type: number
+    WorkersCompRequirements:
+      type: object
+      properties:
+        required:
+          type: boolean
+        el_each_accident_min:
+          type: number
+        waiver_of_subrogation_required:
+          type: boolean
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+      required:
+      - error
+      - message
+      description: 'Every non-2xx JSON response from the API itself. `error` is a stable machine-readable code; `message` is for humans and may change. Codes this API can return: `blocked_file_url`, `empty_requirements`, `extraction_failed`, `input_too_large`, `invalid_file_url`, `invalid_json`, `invalid_requirement_value`, `invalid_requirements`, `method_not_allowed`, `missing_input`, `missing_requirements`, `not_found`, `pdf_url_unsupported`, `provider_misconfigured`, `requirements_not_found`, `requirements_store_unavailable`, `requirements_too_large`, `unauthorized`, `unknown_requirement_keys`, `unsupported_mime_type`, `unsupported_url_scheme`. RapidAPI answers authentication, subscription and rate-limit failures itself, in its own format.'
+    AutoLiabilityRequirements:
+      type: object
+      properties:
+        combined_single_limit_min:
+          type: number
+        additional_insured_required:
+          type: boolean
+    RequirementsProfileResponse:
+      type: object
+      properties:
+        name:
+          type: string
+        general_liability:
+          $ref: '#/components/schemas/GeneralLiabilityRequirements'
+        auto_liability:
+          $ref: '#/components/schemas/AutoLiabilityRequirements'
+        umbrella_excess:
+          $ref: '#/components/schemas/UmbrellaExcessRequirements'
+        workers_comp:
+          $ref: '#/components/schemas/WorkersCompRequirements'
+        min_days_until_expiration:
+          type: number
+        certificate_holder_must_include:
+          type: string
+        id:
+          type: string
+      required:
+      - id
+    CreateRequirementsRequest:
+      $ref: '#/components/schemas/RequirementsProfile'
+  securitySchemes:
+    RapidApiKey:
+      type: apiKey
+      in: header
+      name: X-RapidAPI-Key
+      description: Your RapidAPI application key.
+externalDocs:
+  description: Product page
+  url: https://aerviklabs.com/apis/coi-verification/

@@ -1,0 +1,592 @@
+openapi: 3.2.0
+info:
+  title: ACORD 25 Data Extraction & COI Verification Verify API
+  version: 1.0.0
+  summary: Verify a certificate against your requirements — and get told plainly when a value could not be read.
+  description: Extract and verify ACORD 25 certificates of insurance against your coverage requirements automatically, for contractors, property managers, and risk teams.
+  contact:
+    name: Aervik Labs
+    url: https://aerviklabs.com/about/
+  termsOfService: https://coi.aerviklabs.com/terms
+servers:
+- url: https://certificate-of-insurance-verification-compliance-check-api.p.rapidapi.com
+  description: RapidAPI gateway
+security:
+- RapidApiKey: []
+tags:
+- name: Verify
+paths:
+  /verify:
+    post:
+      operationId: verifyCertificate
+      summary: Extract a certificate and check it against your coverage requirements
+      parameters:
+      - $ref: '#/components/parameters/RapidApiHost'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerifyResponse'
+        '400':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '405':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '502':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerifyRequest'
+      tags:
+      - Verify
+components:
+  parameters:
+    RapidApiHost:
+      name: X-RapidAPI-Host
+      in: header
+      required: true
+      schema:
+        type: string
+        const: certificate-of-insurance-verification-compliance-check-api.p.rapidapi.com
+  schemas:
+    GeneralLiabilityRequirements:
+      type: object
+      properties:
+        each_occurrence_min:
+          type: number
+        general_aggregate_min:
+          type: number
+        products_comp_op_agg_min:
+          type: number
+        personal_adv_injury_min:
+          type: number
+        additional_insured_required:
+          type: boolean
+        waiver_of_subrogation_required:
+          type: boolean
+    AutoLiabilityCoverage:
+      type: object
+      properties:
+        insurer_letter:
+          type:
+          - string
+          - 'null'
+        policy_number:
+          type:
+          - string
+          - 'null'
+        policy_effective_date:
+          type:
+          - string
+          - 'null'
+        policy_expiration_date:
+          type:
+          - string
+          - 'null'
+        additional_insured:
+          type:
+          - boolean
+          - 'null'
+        subrogation_waived:
+          type:
+          - boolean
+          - 'null'
+        combined_single_limit:
+          type:
+          - number
+          - 'null'
+        bodily_injury_per_person:
+          type:
+          - number
+          - 'null'
+        bodily_injury_per_accident:
+          type:
+          - number
+          - 'null'
+        property_damage_per_accident:
+          type:
+          - number
+          - 'null'
+        any_auto:
+          type:
+          - boolean
+          - 'null'
+      required:
+      - additional_insured
+      - any_auto
+      - bodily_injury_per_accident
+      - bodily_injury_per_person
+      - combined_single_limit
+      - insurer_letter
+      - policy_effective_date
+      - policy_expiration_date
+      - policy_number
+      - property_damage_per_accident
+      - subrogation_waived
+    VerifyRequest:
+      type: object
+      properties:
+        file_url:
+          type: string
+        base64_image:
+          type: string
+        mime_type:
+          type: string
+        requirements:
+          $ref: '#/components/schemas/RequirementsProfile'
+        requirements_id:
+          type: string
+    Verdict:
+      type: string
+      enum:
+      - compliant
+      - deficient
+      - cannot_determine
+    CoiData:
+      type: object
+      properties:
+        named_insured:
+          type:
+          - string
+          - 'null'
+        producer:
+          type:
+          - string
+          - 'null'
+        insurers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Insurer'
+        certificate_holder:
+          type:
+          - string
+          - 'null'
+        certificate_date:
+          type:
+          - string
+          - 'null'
+        description_of_operations:
+          type:
+          - string
+          - 'null'
+        general_liability:
+          anyOf:
+          - $ref: '#/components/schemas/GeneralLiabilityCoverage'
+          - type: 'null'
+        auto_liability:
+          anyOf:
+          - $ref: '#/components/schemas/AutoLiabilityCoverage'
+          - type: 'null'
+        umbrella_excess:
+          anyOf:
+          - $ref: '#/components/schemas/UmbrellaExcessCoverage'
+          - type: 'null'
+        workers_comp:
+          anyOf:
+          - $ref: '#/components/schemas/WorkersCompCoverage'
+          - type: 'null'
+        other_coverages:
+          type: array
+          items:
+            $ref: '#/components/schemas/OtherCoverage'
+        confidence:
+          type: number
+          description: The extraction's own confidence, 0 to 1. Values that could not be quoted are withheld regardless of this number.
+      required:
+      - named_insured
+      - producer
+      - insurers
+      - certificate_holder
+      - certificate_date
+      - description_of_operations
+      - general_liability
+      - auto_liability
+      - umbrella_excess
+      - workers_comp
+      - other_coverages
+      - confidence
+    WorkersCompCoverage:
+      type: object
+      properties:
+        insurer_letter:
+          type:
+          - string
+          - 'null'
+        policy_number:
+          type:
+          - string
+          - 'null'
+        policy_effective_date:
+          type:
+          - string
+          - 'null'
+        policy_expiration_date:
+          type:
+          - string
+          - 'null'
+        additional_insured:
+          type:
+          - boolean
+          - 'null'
+        subrogation_waived:
+          type:
+          - boolean
+          - 'null'
+        per_statute:
+          type:
+          - boolean
+          - 'null'
+        el_each_accident:
+          type:
+          - number
+          - 'null'
+        el_disease_ea_employee:
+          type:
+          - number
+          - 'null'
+        el_disease_policy_limit:
+          type:
+          - number
+          - 'null'
+      required:
+      - additional_insured
+      - el_disease_ea_employee
+      - el_disease_policy_limit
+      - el_each_accident
+      - insurer_letter
+      - per_statute
+      - policy_effective_date
+      - policy_expiration_date
+      - policy_number
+      - subrogation_waived
+    VerifyResponse:
+      $ref: '#/components/schemas/VerifyResult'
+    UmbrellaExcessRequirements:
+      type: object
+      properties:
+        each_occurrence_min:
+          type: number
+        aggregate_min:
+          type: number
+    Deficiency:
+      type: object
+      properties:
+        field:
+          type: string
+        required:
+          type: string
+        actual:
+          type: string
+        status:
+          $ref: '#/components/schemas/FieldStatus'
+          description: present, absent (blank on the certificate), or unreadable (printed but could not be read — ask for a clearer copy).
+        reason:
+          type: string
+      required:
+      - field
+      - required
+      - actual
+      - status
+      - reason
+    GeneralLiabilityCoverage:
+      type: object
+      properties:
+        insurer_letter:
+          type:
+          - string
+          - 'null'
+        policy_number:
+          type:
+          - string
+          - 'null'
+        policy_effective_date:
+          type:
+          - string
+          - 'null'
+        policy_expiration_date:
+          type:
+          - string
+          - 'null'
+        additional_insured:
+          type:
+          - boolean
+          - 'null'
+        subrogation_waived:
+          type:
+          - boolean
+          - 'null'
+        each_occurrence:
+          type:
+          - number
+          - 'null'
+        damage_to_rented_premises:
+          type:
+          - number
+          - 'null'
+        med_exp:
+          type:
+          - number
+          - 'null'
+        personal_adv_injury:
+          type:
+          - number
+          - 'null'
+        general_aggregate:
+          type:
+          - number
+          - 'null'
+        products_comp_op_agg:
+          type:
+          - number
+          - 'null'
+        claims_made:
+          type:
+          - boolean
+          - 'null'
+      required:
+      - additional_insured
+      - claims_made
+      - damage_to_rented_premises
+      - each_occurrence
+      - general_aggregate
+      - insurer_letter
+      - med_exp
+      - personal_adv_injury
+      - policy_effective_date
+      - policy_expiration_date
+      - policy_number
+      - products_comp_op_agg
+      - subrogation_waived
+    AutoLiabilityRequirements:
+      type: object
+      properties:
+        combined_single_limit_min:
+          type: number
+        additional_insured_required:
+          type: boolean
+    RequirementsProfile:
+      type: object
+      properties:
+        name:
+          type: string
+        general_liability:
+          $ref: '#/components/schemas/GeneralLiabilityRequirements'
+        auto_liability:
+          $ref: '#/components/schemas/AutoLiabilityRequirements'
+        umbrella_excess:
+          $ref: '#/components/schemas/UmbrellaExcessRequirements'
+        workers_comp:
+          $ref: '#/components/schemas/WorkersCompRequirements'
+        min_days_until_expiration:
+          type: number
+        certificate_holder_must_include:
+          type: string
+    WorkersCompRequirements:
+      type: object
+      properties:
+        required:
+          type: boolean
+        el_each_accident_min:
+          type: number
+        waiver_of_subrogation_required:
+          type: boolean
+    UmbrellaExcessCoverage:
+      type: object
+      properties:
+        insurer_letter:
+          type:
+          - string
+          - 'null'
+        policy_number:
+          type:
+          - string
+          - 'null'
+        policy_effective_date:
+          type:
+          - string
+          - 'null'
+        policy_expiration_date:
+          type:
+          - string
+          - 'null'
+        additional_insured:
+          type:
+          - boolean
+          - 'null'
+        subrogation_waived:
+          type:
+          - boolean
+          - 'null'
+        each_occurrence:
+          type:
+          - number
+          - 'null'
+        aggregate:
+          type:
+          - number
+          - 'null'
+        is_umbrella:
+          type:
+          - boolean
+          - 'null'
+      required:
+      - additional_insured
+      - aggregate
+      - each_occurrence
+      - insurer_letter
+      - is_umbrella
+      - policy_effective_date
+      - policy_expiration_date
+      - policy_number
+      - subrogation_waived
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+      required:
+      - error
+      - message
+      description: 'Every non-2xx JSON response from the API itself. `error` is a stable machine-readable code; `message` is for humans and may change. Codes this API can return: `blocked_file_url`, `empty_requirements`, `extraction_failed`, `input_too_large`, `invalid_file_url`, `invalid_json`, `invalid_requirement_value`, `invalid_requirements`, `method_not_allowed`, `missing_input`, `missing_requirements`, `not_found`, `pdf_url_unsupported`, `provider_misconfigured`, `requirements_not_found`, `requirements_store_unavailable`, `requirements_too_large`, `unauthorized`, `unknown_requirement_keys`, `unsupported_mime_type`, `unsupported_url_scheme`. RapidAPI answers authentication, subscription and rate-limit failures itself, in its own format.'
+    FieldStatus:
+      type: string
+      enum:
+      - present
+      - absent
+      - unreadable
+    VerifyResult:
+      type: object
+      properties:
+        compliant:
+          type: boolean
+          description: True only when every evaluated requirement passed against a field that could be read. False whenever the verdict is cannot_determine.
+        verdict:
+          $ref: '#/components/schemas/Verdict'
+          description: compliant, deficient, or cannot_determine. cannot_determine means a field one of your requirements depends on could not be read — it is not a coverage deficiency.
+        deficiencies:
+          type: array
+          items:
+            $ref: '#/components/schemas/Deficiency'
+        evaluated:
+          type: array
+          items:
+            type: string
+          description: The requirement keys that were actually evaluated, so a rule that was not checked cannot read as a pass.
+        withheld:
+          type: array
+          items:
+            type: string
+          description: Dotted paths of values that are on the document but are not reported, because they could not be quoted from it or the cell was illegible.
+        parsed:
+          $ref: '#/components/schemas/CoiData'
+      required:
+      - compliant
+      - verdict
+      - deficiencies
+      - evaluated
+      - withheld
+      - parsed
+    OtherCoverage:
+      type: object
+      properties:
+        insurer_letter:
+          type:
+          - string
+          - 'null'
+        policy_number:
+          type:
+          - string
+          - 'null'
+        policy_effective_date:
+          type:
+          - string
+          - 'null'
+        policy_expiration_date:
+          type:
+          - string
+          - 'null'
+        additional_insured:
+          type:
+          - boolean
+          - 'null'
+        subrogation_waived:
+          type:
+          - boolean
+          - 'null'
+        description:
+          type: string
+        limit:
+          type:
+          - number
+          - 'null'
+      required:
+      - additional_insured
+      - description
+      - insurer_letter
+      - limit
+      - policy_effective_date
+      - policy_expiration_date
+      - policy_number
+      - subrogation_waived
+    Insurer:
+      type: object
+      properties:
+        letter:
+          type: string
+        name:
+          type:
+          - string
+          - 'null'
+        naic_number:
+          type:
+          - string
+          - 'null'
+      required:
+      - letter
+      - name
+      - naic_number
+  securitySchemes:
+    RapidApiKey:
+      type: apiKey
+      in: header
+      name: X-RapidAPI-Key
+      description: Your RapidAPI application key.
+externalDocs:
+  description: Product page
+  url: https://aerviklabs.com/apis/coi-verification/
