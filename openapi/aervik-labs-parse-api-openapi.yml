@@ -62,14 +62,6 @@ paths:
       tags:
       - Parse
 components:
-  parameters:
-    RapidApiHost:
-      name: X-RapidAPI-Host
-      in: header
-      required: true
-      schema:
-        type: string
-        const: certificate-of-insurance-verification-compliance-check-api.p.rapidapi.com
   schemas:
     WorkersCompCoverage:
       type: object
@@ -125,6 +117,78 @@ components:
       - policy_expiration_date
       - policy_number
       - subrogation_waived
+    AutoLiabilityCoverage:
+      type: object
+      properties:
+        insurer_letter:
+          type:
+          - string
+          - 'null'
+        policy_number:
+          type:
+          - string
+          - 'null'
+        policy_effective_date:
+          type:
+          - string
+          - 'null'
+        policy_expiration_date:
+          type:
+          - string
+          - 'null'
+        additional_insured:
+          type:
+          - boolean
+          - 'null'
+        subrogation_waived:
+          type:
+          - boolean
+          - 'null'
+        combined_single_limit:
+          type:
+          - number
+          - 'null'
+        bodily_injury_per_person:
+          type:
+          - number
+          - 'null'
+        bodily_injury_per_accident:
+          type:
+          - number
+          - 'null'
+        property_damage_per_accident:
+          type:
+          - number
+          - 'null'
+        any_auto:
+          type:
+          - boolean
+          - 'null'
+      required:
+      - additional_insured
+      - any_auto
+      - bodily_injury_per_accident
+      - bodily_injury_per_person
+      - combined_single_limit
+      - insurer_letter
+      - policy_effective_date
+      - policy_expiration_date
+      - policy_number
+      - property_damage_per_accident
+      - subrogation_waived
+    ParseRequest:
+      $ref: '#/components/schemas/DocumentRequestBody'
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+      required:
+      - error
+      - message
+      description: 'Every non-2xx JSON response from the API itself. `error` is a stable machine-readable code; `message` is for humans and may change. Codes this API can return: `blocked_file_url`, `empty_requirements`, `extraction_failed`, `input_too_large`, `invalid_file_url`, `invalid_json`, `invalid_requirement_value`, `invalid_requirements`, `method_not_allowed`, `missing_input`, `missing_requirements`, `not_found`, `pdf_url_unsupported`, `provider_misconfigured`, `requirements_not_found`, `requirements_store_unavailable`, `requirements_too_large`, `unauthorized`, `unknown_requirement_keys`, `unsupported_mime_type`, `unsupported_url_scheme`. RapidAPI answers authentication, subscription and rate-limit failures itself, in its own format.'
     DocumentRequestBody:
       type: object
       properties:
@@ -134,8 +198,182 @@ components:
           type: string
         mime_type:
           type: string
-    ParseRequest:
-      $ref: '#/components/schemas/DocumentRequestBody'
+    ParseResponse:
+      type: object
+      properties:
+        named_insured:
+          type:
+          - string
+          - 'null'
+        producer:
+          type:
+          - string
+          - 'null'
+        insurers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Insurer'
+        certificate_holder:
+          type:
+          - string
+          - 'null'
+        certificate_date:
+          type:
+          - string
+          - 'null'
+        description_of_operations:
+          type:
+          - string
+          - 'null'
+        general_liability:
+          anyOf:
+          - $ref: '#/components/schemas/GeneralLiabilityCoverage'
+          - type: 'null'
+        auto_liability:
+          anyOf:
+          - $ref: '#/components/schemas/AutoLiabilityCoverage'
+          - type: 'null'
+        umbrella_excess:
+          anyOf:
+          - $ref: '#/components/schemas/UmbrellaExcessCoverage'
+          - type: 'null'
+        workers_comp:
+          anyOf:
+          - $ref: '#/components/schemas/WorkersCompCoverage'
+          - type: 'null'
+        other_coverages:
+          type: array
+          items:
+            $ref: '#/components/schemas/OtherCoverage'
+        confidence:
+          type: number
+        withheld:
+          type: array
+          items:
+            type: string
+          description: Dotted paths of values that are on the document but are not reported, because they could not be quoted from it or the cell was illegible.
+      required:
+      - auto_liability
+      - certificate_date
+      - certificate_holder
+      - confidence
+      - description_of_operations
+      - general_liability
+      - insurers
+      - named_insured
+      - other_coverages
+      - producer
+      - umbrella_excess
+      - withheld
+      - workers_comp
+    UmbrellaExcessCoverage:
+      type: object
+      properties:
+        insurer_letter:
+          type:
+          - string
+          - 'null'
+        policy_number:
+          type:
+          - string
+          - 'null'
+        policy_effective_date:
+          type:
+          - string
+          - 'null'
+        policy_expiration_date:
+          type:
+          - string
+          - 'null'
+        additional_insured:
+          type:
+          - boolean
+          - 'null'
+        subrogation_waived:
+          type:
+          - boolean
+          - 'null'
+        each_occurrence:
+          type:
+          - number
+          - 'null'
+        aggregate:
+          type:
+          - number
+          - 'null'
+        is_umbrella:
+          type:
+          - boolean
+          - 'null'
+      required:
+      - additional_insured
+      - aggregate
+      - each_occurrence
+      - insurer_letter
+      - is_umbrella
+      - policy_effective_date
+      - policy_expiration_date
+      - policy_number
+      - subrogation_waived
+    Insurer:
+      type: object
+      properties:
+        letter:
+          type: string
+        name:
+          type:
+          - string
+          - 'null'
+        naic_number:
+          type:
+          - string
+          - 'null'
+      required:
+      - letter
+      - name
+      - naic_number
+    OtherCoverage:
+      type: object
+      properties:
+        insurer_letter:
+          type:
+          - string
+          - 'null'
+        policy_number:
+          type:
+          - string
+          - 'null'
+        policy_effective_date:
+          type:
+          - string
+          - 'null'
+        policy_expiration_date:
+          type:
+          - string
+          - 'null'
+        additional_insured:
+          type:
+          - boolean
+          - 'null'
+        subrogation_waived:
+          type:
+          - boolean
+          - 'null'
+        description:
+          type: string
+        limit:
+          type:
+          - number
+          - 'null'
+      required:
+      - additional_insured
+      - description
+      - insurer_letter
+      - limit
+      - policy_effective_date
+      - policy_expiration_date
+      - policy_number
+      - subrogation_waived
     GeneralLiabilityCoverage:
       type: object
       properties:
@@ -205,252 +443,14 @@ components:
       - policy_number
       - products_comp_op_agg
       - subrogation_waived
-    UmbrellaExcessCoverage:
-      type: object
-      properties:
-        insurer_letter:
-          type:
-          - string
-          - 'null'
-        policy_number:
-          type:
-          - string
-          - 'null'
-        policy_effective_date:
-          type:
-          - string
-          - 'null'
-        policy_expiration_date:
-          type:
-          - string
-          - 'null'
-        additional_insured:
-          type:
-          - boolean
-          - 'null'
-        subrogation_waived:
-          type:
-          - boolean
-          - 'null'
-        each_occurrence:
-          type:
-          - number
-          - 'null'
-        aggregate:
-          type:
-          - number
-          - 'null'
-        is_umbrella:
-          type:
-          - boolean
-          - 'null'
-      required:
-      - additional_insured
-      - aggregate
-      - each_occurrence
-      - insurer_letter
-      - is_umbrella
-      - policy_effective_date
-      - policy_expiration_date
-      - policy_number
-      - subrogation_waived
-    AutoLiabilityCoverage:
-      type: object
-      properties:
-        insurer_letter:
-          type:
-          - string
-          - 'null'
-        policy_number:
-          type:
-          - string
-          - 'null'
-        policy_effective_date:
-          type:
-          - string
-          - 'null'
-        policy_expiration_date:
-          type:
-          - string
-          - 'null'
-        additional_insured:
-          type:
-          - boolean
-          - 'null'
-        subrogation_waived:
-          type:
-          - boolean
-          - 'null'
-        combined_single_limit:
-          type:
-          - number
-          - 'null'
-        bodily_injury_per_person:
-          type:
-          - number
-          - 'null'
-        bodily_injury_per_accident:
-          type:
-          - number
-          - 'null'
-        property_damage_per_accident:
-          type:
-          - number
-          - 'null'
-        any_auto:
-          type:
-          - boolean
-          - 'null'
-      required:
-      - additional_insured
-      - any_auto
-      - bodily_injury_per_accident
-      - bodily_injury_per_person
-      - combined_single_limit
-      - insurer_letter
-      - policy_effective_date
-      - policy_expiration_date
-      - policy_number
-      - property_damage_per_accident
-      - subrogation_waived
-    OtherCoverage:
-      type: object
-      properties:
-        insurer_letter:
-          type:
-          - string
-          - 'null'
-        policy_number:
-          type:
-          - string
-          - 'null'
-        policy_effective_date:
-          type:
-          - string
-          - 'null'
-        policy_expiration_date:
-          type:
-          - string
-          - 'null'
-        additional_insured:
-          type:
-          - boolean
-          - 'null'
-        subrogation_waived:
-          type:
-          - boolean
-          - 'null'
-        description:
-          type: string
-        limit:
-          type:
-          - number
-          - 'null'
-      required:
-      - additional_insured
-      - description
-      - insurer_letter
-      - limit
-      - policy_effective_date
-      - policy_expiration_date
-      - policy_number
-      - subrogation_waived
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-        message:
-          type: string
-      required:
-      - error
-      - message
-      description: 'Every non-2xx JSON response from the API itself. `error` is a stable machine-readable code; `message` is for humans and may change. Codes this API can return: `blocked_file_url`, `empty_requirements`, `extraction_failed`, `input_too_large`, `invalid_file_url`, `invalid_json`, `invalid_requirement_value`, `invalid_requirements`, `method_not_allowed`, `missing_input`, `missing_requirements`, `not_found`, `pdf_url_unsupported`, `provider_misconfigured`, `requirements_not_found`, `requirements_store_unavailable`, `requirements_too_large`, `unauthorized`, `unknown_requirement_keys`, `unsupported_mime_type`, `unsupported_url_scheme`. RapidAPI answers authentication, subscription and rate-limit failures itself, in its own format.'
-    Insurer:
-      type: object
-      properties:
-        letter:
-          type: string
-        name:
-          type:
-          - string
-          - 'null'
-        naic_number:
-          type:
-          - string
-          - 'null'
-      required:
-      - letter
-      - name
-      - naic_number
-    ParseResponse:
-      type: object
-      properties:
-        named_insured:
-          type:
-          - string
-          - 'null'
-        producer:
-          type:
-          - string
-          - 'null'
-        insurers:
-          type: array
-          items:
-            $ref: '#/components/schemas/Insurer'
-        certificate_holder:
-          type:
-          - string
-          - 'null'
-        certificate_date:
-          type:
-          - string
-          - 'null'
-        description_of_operations:
-          type:
-          - string
-          - 'null'
-        general_liability:
-          anyOf:
-          - $ref: '#/components/schemas/GeneralLiabilityCoverage'
-          - type: 'null'
-        auto_liability:
-          anyOf:
-          - $ref: '#/components/schemas/AutoLiabilityCoverage'
-          - type: 'null'
-        umbrella_excess:
-          anyOf:
-          - $ref: '#/components/schemas/UmbrellaExcessCoverage'
-          - type: 'null'
-        workers_comp:
-          anyOf:
-          - $ref: '#/components/schemas/WorkersCompCoverage'
-          - type: 'null'
-        other_coverages:
-          type: array
-          items:
-            $ref: '#/components/schemas/OtherCoverage'
-        confidence:
-          type: number
-        withheld:
-          type: array
-          items:
-            type: string
-          description: Dotted paths of values that are on the document but are not reported, because they could not be quoted from it or the cell was illegible.
-      required:
-      - auto_liability
-      - certificate_date
-      - certificate_holder
-      - confidence
-      - description_of_operations
-      - general_liability
-      - insurers
-      - named_insured
-      - other_coverages
-      - producer
-      - umbrella_excess
-      - withheld
-      - workers_comp
+  parameters:
+    RapidApiHost:
+      name: X-RapidAPI-Host
+      in: header
+      required: true
+      schema:
+        type: string
+        const: certificate-of-insurance-verification-compliance-check-api.p.rapidapi.com
   securitySchemes:
     RapidApiKey:
       type: apiKey
